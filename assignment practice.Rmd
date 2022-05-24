@@ -1,0 +1,91 @@
+---
+title: "assignment practice"
+author: "DR"
+date: '2022-05-23'
+output: html_document
+---
+
+
+
+
+```{r,q1}
+URL<- "https://raw.githubusercontent.com/markziemann/SLE712_files/master/assessment_task3/bioinfo_asst3_part1_files/gene_expression.tsv"
+URL
+download.file(URL,destfile="gene_expression")
+summary(URL)
+data<-read.table(URL)
+data<-read.table(URL,stringsAsFactors=FALSE, header=TRUE)
+data
+#Gene identifyers set as row names
+data<-read.table(URL,stringsAsFactors=FALSE, header=TRUE, row.names=1)
+data
+str(data)
+rownames(data)
+grep("ENG",rownames(data))
+#Data for table of first six genes. 
+data[1:6,]
+```
+```{r,q2}
+#Making a new column which is the mean of the other columns.
+
+ncol(data)
+data
+rowMeans(data)
+data
+rowMeans(data)
+Mean<-rowMeans(data)
+Mean
+data$Mean<-Mean
+data
+#First six genes
+data[1:6,]
+
+```
+```{r,q3}
+#3. list 10 genes with the highest mean expression.
+
+
+order(data)
+data
+order(data$Mean)
+data$Mean
+order(data$Mean)
+data[order(data$Mean),]
+data[order(-data$Mean),]
+revsort<-data[order(-data$Mean),]
+revsort
+revsort[1:10,c(4,ncol(revsort))]
+revsort[1:10,]
+grep("ENS",rownames(revsort[1:10,]))
+
+rname<-revsort[grep("ENS",rownames(revsort[1:10,])),]
+rname
+rownames(rname)
+
+```
+```{r, q4}
+#4. Determine the number of genes with a mean <10
+
+data
+data$Mean<10
+which(data$Mean<10)
+data[which(data$Mean<10),]
+dt<-data[which(data$Mean<10),]
+nrow(dt)
+rownames(data)
+rownames(dt)
+```
+```{r,q5}
+#5. Make a Histogram plot of the Mean values and include it in your report.
+
+as.matrix(data$Mean)
+dmat<-as.matrix(data$Mean)
+dmat
+hist(dmat,xlab = "Mean values",main = "Mean of gene expressions", breaks = 100)
+range(data)
+```
+
+
+
+
+
